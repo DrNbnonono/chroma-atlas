@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx --version)",
+      "Bash(python -m http.server 8000 --bind 127.0.0.1)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}  Size: %{size_download} bytes\\\\n\" http://127.0.0.1:8000/)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}  Size: %{size_download} bytes  \\(design-canvas.jsx\\)\\\\n\" http://127.0.0.1:8000/design-canvas.jsx)"
+    ]
+  }
+}

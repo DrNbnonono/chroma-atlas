@@ -1,0 +1,18 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "design-styles-http",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8080"],
+      "port": 8080
+    },
+    {
+      "name": "web-design-skill-vite",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "--port", "5173"],
+      "port": 5173,
+      "cwd": "E:/BaiduSyncdisk/ClaudeCode/skills/web-design-skill-main/web"
+    }
+  ]
+}
