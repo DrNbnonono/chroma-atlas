@@ -159,7 +159,10 @@ function PaletteCardFrame({ p, onClick }) {
         e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04)';
       }}
     >
-      <div style={{ position: 'absolute', top: 10, left: 10, fontSize: 9, fontWeight: 700, letterSpacing: 1.5, padding: '2px 8px', background: 'rgba(255,255,255,0.85)', color: '#1F1A14', borderRadius: 4, backdropFilter: 'blur(6px)' }}>PALETTE</div>
+      <div style={{ position: 'absolute', top: 10, left: 10, fontSize: 9, fontWeight: 700, letterSpacing: 1.5, padding: '2px 8px', background: 'rgba(255,255,255,0.85)', color: '#1F1A14', borderRadius: 4, backdropFilter: 'blur(6px)', zIndex: 5 }}>PALETTE</div>
+      <div style={{ position: 'absolute', top: 6, right: 6, zIndex: 5 }}>
+        <window.CopyButton kind="palette" item={p} size="sm" />
+      </div>
       <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
         <window.PaletteCard p={p} />
       </div>
@@ -190,7 +193,10 @@ function StyleCardFrame({ st, onClick }) {
         e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04)';
       }}
     >
-      <div style={{ position: 'absolute', top: 10, left: 10, fontSize: 9, fontWeight: 700, letterSpacing: 1.5, padding: '2px 8px', background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: 4 }}>STYLE</div>
+      <div style={{ position: 'absolute', top: 10, left: 10, fontSize: 9, fontWeight: 700, letterSpacing: 1.5, padding: '2px 8px', background: 'rgba(0,0,0,0.7)', color: '#fff', borderRadius: 4, zIndex: 5 }}>STYLE</div>
+      <div style={{ position: 'absolute', top: 6, right: 6, zIndex: 5 }}>
+        <window.CopyButton kind="style" item={st} size="sm" />
+      </div>
       <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 20, gap: 12 }}>
         <st.Comp />
       </div>

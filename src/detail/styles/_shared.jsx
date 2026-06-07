@@ -37,8 +37,9 @@ function SharedBackBar({ onBack, item, kind, theme }) {
         }}>{kind === 'palette' ? 'PALETTE' : 'STYLE'}</span>
         <span style={{ color: theme.text, fontWeight: 600 }}>{item.name}</span>
         <span style={{ opacity: 0.4 }}>·</span>
-        <span style={{ opacity: 0.7 }}>{item.desc}</span>
+        <span style={{ opacity: 0.7, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0 }}>{item.desc}</span>
       </div>
+      <window.CopyButton kind={kind} item={item} size="md" />
     </div>
   );
 }
