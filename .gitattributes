@@ -1,0 +1,13 @@
+# chroma-atlas -- line-ending policy
+# All text files use LF; no CRLF on Windows checkouts.
+* text=auto eol=lf
+*.md    text eol=lf
+*.jsx   text eol=lf
+*.js    text eol=lf
+*.json  text eol=lf
+*.html  text eol=lf
+*.css   text eol=lf
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
