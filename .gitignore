@@ -1,0 +1,9 @@
+node_modules/
+.DS_Store
+*.log
+plan.md
+# vendor/ IS committed — it's a build artifact needed for offline serving
+# Don't ignore it. The postinstall script regenerates it from node_modules.
+prompt.md
+__pycache__/
+%TEMP%/

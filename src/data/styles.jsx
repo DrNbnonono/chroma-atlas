@@ -1,4 +1,4 @@
-// Style variations — each one is a fully custom-rendered demo card showcasing a visual treatment.
+﻿// Style variations — each one is a fully custom-rendered demo card showcasing a visual treatment.
 // Same content, very different visual languages.
 
 // Shared content for all style demos
@@ -478,16 +478,16 @@ function StyleEditorial() {
 }
 
 window.STYLES = [
-  { id: 'cyber', name: 'Cyberpunk 赛博朋克', desc: '霓虹紫粉青、扫描线、未来感', Comp: StyleCyber },
-  { id: 'glass', name: 'Glassmorphism 毛玻璃', desc: '半透明模糊 + 渐变背景', Comp: StyleGlass },
-  { id: 'liquid', name: 'Liquid Glass 流体光感', desc: '苹果新拟物、柔光高光', Comp: StyleLiquid },
-  { id: 'neumorph', name: 'Neumorphism 新拟态', desc: '柔和凹凸阴影、单色', Comp: StyleNeumorph },
-  { id: 'cartoon', name: 'Cartoon 卡通', desc: '粗黑边、硬阴影、明亮色块', Comp: StyleCartoon },
-  { id: 'brutal', name: 'Brutalism 粗野', desc: '原始、粗体、高对比、分块', Comp: StyleBrutal },
-  { id: 'skeuo', name: 'Skeuomorphism 拟物', desc: '金属质感、LCD 屏幕', Comp: StyleSkeuo },
-  { id: 'memphis', name: 'Memphis 孟菲斯', desc: '80s 几何形状、大胆色块', Comp: StyleMemphis },
-  { id: 'pixel', name: 'Pixel 像素复古', desc: '8-bit、单色屏、游戏机', Comp: StylePixel },
-  { id: 'minimal', name: 'Minimal 极简', desc: '黑白、细线、留白、衬线', Comp: StyleMinimal },
-  { id: 'clay', name: 'Clay 黏土 3D', desc: '柔和体积感、内外阴影', Comp: StyleClay },
-  { id: 'editorial', name: 'Editorial 杂志', desc: '衬线、栏线、印刷气质', Comp: StyleEditorial },
+  { id: 'cyber', name: 'Cyberpunk 赛博朋克', desc: '霓虹紫粉青、扫描线、未来感', Comp: StyleCyber, layout: 'flow', theme: { bg: '#0A0118', surface: '#1A0A2E', text: '#00F0FF', sub: 'rgba(0,240,255,0.65)', primary: '#FF2E97', accent: '#FFD600', border: '#FF2E97', isDark: true, fontFamily: '"Courier New", monospace' } },
+  { id: 'glass', name: 'Glassmorphism 毛玻璃', desc: '半透明模糊 + 渐变背景', Comp: StyleGlass, layout: 'flow', theme: { bg: 'linear-gradient(135deg, #FFB6D9 0%, #B6E1FF 100%)', surface: 'rgba(255,255,255,0.25)', text: '#1F1A38', sub: '#5A4A78', primary: '#FF4FA8', accent: '#5BC8FF', border: 'rgba(255,255,255,0.4)', isDark: false, fontFamily: '-apple-system, sans-serif' } },
+  { id: 'liquid', name: 'Liquid Glass 流体光感', desc: '苹果新拟物、柔光高光', Comp: StyleLiquid, layout: 'flow', theme: { bg: 'linear-gradient(135deg, #FFD1E8 0%, #C5E1FF 50%, #D1C5FF 100%)', surface: 'rgba(255,255,255,0.35)', text: '#1A1438', sub: '#5A4A78', primary: '#5C3D99', accent: '#FF6B9D', border: 'rgba(255,255,255,0.5)', isDark: false, fontFamily: '-apple-system, sans-serif' } },
+  { id: 'neumorph', name: 'Neumorphism 新拟态', desc: '柔和凹凸阴影、单色', Comp: StyleNeumorph, layout: 'flow', theme: { bg: '#E0E5EC', surface: '#E0E5EC', text: '#2C3E50', sub: '#6B7A8F', primary: '#5A6A85', accent: '#7A8AB5', border: '#FFFFFF', isDark: false, fontFamily: '-apple-system, sans-serif' } },
+  { id: 'cartoon', name: 'Cartoon 卡通', desc: '粗黑边、硬阴影、明亮色块', Comp: StyleCartoon, layout: 'flow', theme: { bg: '#FFE066', surface: '#FFFFFF', text: '#0F0F0F', sub: '#3A3A3A', primary: '#FF4FA8', accent: '#5BC8FF', border: '#0F0F0F', isDark: false, fontFamily: '"Comic Sans MS", system-ui, sans-serif' } },
+  { id: 'brutal', name: 'Brutalism 粗野', desc: '原始、粗体、高对比、分块', Comp: StyleBrutal, layout: 'flow', theme: { bg: '#FFE066', surface: '#FF4FA8', text: '#0F0F0F', sub: '#1A1A1A', primary: '#0F0F0F', accent: '#5BC8FF', border: '#0F0F0F', isDark: false, fontFamily: '"Helvetica Neue", "Arial Black", sans-serif' } },
+  { id: 'skeuo', name: 'Skeuomorphism 拟物', desc: '金属质感、LCD 屏幕', Comp: StyleSkeuo, layout: 'flow', theme: { bg: '#2A2A2A', surface: '#3A3A3A', text: '#F5E6B8', sub: '#C9B57A', primary: '#D4B25F', accent: '#F5B83A', border: '#1A1A1A', isDark: true, fontFamily: '"Lucida Grande", "Helvetica Neue", sans-serif' } },
+  { id: 'memphis', name: 'Memphis 孟菲斯', desc: '80s 几何形状、大胆色块', Comp: StyleMemphis, layout: 'flow', theme: { bg: '#FFE0F0', surface: '#FFFFFF', text: '#1A1438', sub: '#5A4A78', primary: '#FF4FA8', accent: '#FFD600', border: '#1A1438', isDark: false, fontFamily: '"Comic Sans MS", "Trebuchet MS", sans-serif' } },
+  { id: 'pixel', name: 'Pixel 像素复古', desc: '8-bit、单色屏、游戏机', Comp: StylePixel, layout: 'flow', theme: { bg: '#0F0F1A', surface: '#1A1A2E', text: '#9BFF4F', sub: '#7ACC3A', primary: '#9BFF4F', accent: '#FF6B9D', border: '#9BFF4F', isDark: true, fontFamily: '"Courier New", monospace' } },
+  { id: 'minimal', name: 'Minimal 极简', desc: '黑白、细线、留白、衬线', Comp: StyleMinimal, layout: 'flow', theme: { bg: '#FFFFFF', surface: '#FAFAFA', text: '#0F0F0F', sub: '#7A7A7A', primary: '#0F0F0F', accent: '#C96442', border: '#E5E5E5', isDark: false, fontFamily: 'Georgia, "Times New Roman", serif' } },
+  { id: 'clay', name: 'Clay 黏土 3D', desc: '柔和体积感、内外阴影', Comp: StyleClay, layout: 'flow', theme: { bg: '#F8D5E0', surface: '#FFE5EE', text: '#5A2A4A', sub: '#8A5A78', primary: '#E88AA8', accent: '#A878D8', border: 'rgba(232,138,168,0.4)', isDark: false, fontFamily: '-apple-system, sans-serif' } },
+  { id: 'editorial', name: 'Editorial 杂志', desc: '衬线、栏线、印刷气质', Comp: StyleEditorial, layout: 'flow', theme: { bg: '#F5F1EA', surface: '#FFFFFF', text: '#0F0F0F', sub: '#5A5A5A', primary: '#0F0F0F', accent: '#C84838', border: '#E8E2D6', isDark: false, fontFamily: 'Georgia, "Times New Roman", serif' } },
 ];

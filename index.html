@@ -2,60 +2,159 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8" />
-<title>配色与风格参考</title>
+<title>配色 × 风格参考库</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <style>
-  html, body { margin: 0; padding: 0; height: 100%; background: #1a1a1a; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
-  #root { width: 100vw; height: 100vh; }
+  html, body { margin: 0; padding: 0; min-height: 100%; background: #F5F1EA; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    color: #1F1A14;
+  }
+  #root { min-height: 100vh; }
+  #boot-error {
+    position: fixed; inset: 0; background: #1F1A14; color: #FFE0CC;
+    font-family: monospace; padding: 40px; white-space: pre-wrap; overflow: auto;
+    z-index: 9999; display: none;
+  }
 </style>
 </head>
 <body>
-<div id="root"></div>
+<div id="root">
+  <div style="padding: 40px; text-align: center; color: #6B635A;">加载中…</div>
+</div>
+<pre id="boot-error"></pre>
 
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script>
+  window.addEventListener('error', (e) => {
+    const el = document.getElementById('boot-error');
+    if (el) { el.style.display = 'block'; el.textContent = '[ERROR] ' + (e.message || e.error || 'unknown') + '\n\n' + (e.filename || '') + ':' + (e.lineno || ''); }
+    console.error(e);
+  });
+  window.addEventListener('unhandledrejection', (e) => {
+    const el = document.getElementById('boot-error');
+    if (el) { el.style.display = 'block'; el.textContent = '[PROMISE] ' + (e.reason && e.reason.message || e.reason); }
+  });
+</script>
 
-<script type="text/babel" src="design-canvas.jsx"></script>
-<script type="text/babel" src="palettes.jsx"></script>
-<script type="text/babel" src="palettes-3.jsx"></script>
-<script type="text/babel" src="demo-card.jsx"></script>
-<script type="text/babel" src="styles.jsx"></script>
-<script type="text/babel" src="styles-2.jsx"></script>
-<script type="text/babel" src="styles-3.jsx"></script>
-
-<script type="text/babel">
-  const { DesignCanvas, DCSection, DCArtboard } = window;
-
-  function App() {
-    return (
-      <DesignCanvas title="配色 & 风格参考库" subtitle="同一个『音乐播放器』Demo，用不同的配色 / 风格演绎。点击任一卡片可全屏查看。">
-        <DCSection id="palettes" title="🎨 配色方案 Color Palettes" subtitle="结构相同，仅替换色板 — 用于直接对比色彩气质">
-          {window.PALETTES.map((p) => (
-            <DCArtboard key={p.id} id={`pal-${p.id}`} label={p.name} width={360} height={420}>
-              <div style={{ padding: 20, background: p.bg, width: '100%', height: '100%', boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <window.PaletteCard p={p} />
-              </div>
-            </DCArtboard>
-          ))}
-        </DCSection>
-
-        <DCSection id="styles" title="✨ 风格方案 Visual Styles" subtitle="同样的内容，完全不同的视觉语言 — 用于探索整体风格方向">
-          {window.STYLES.map((st) => (
-            <DCArtboard key={st.id} id={`sty-${st.id}`} label={st.name} width={360} height={460}>
-              <div style={{ padding: 20, background: '#F5F5F5', width: '100%', height: '100%', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12 }}>
-                <st.Comp />
-                <div style={{ fontSize: 11, color: '#888', textAlign: 'center', maxWidth: 300, lineHeight: 1.5 }}>{st.desc}</div>
-              </div>
-            </DCArtboard>
-          ))}
-        </DCSection>
-      </DesignCanvas>
-    );
+<!-- Bootstrap: load React, ReactDOM, Babel, then JSX files in order -->
+<script>
+  function showError(msg) {
+    const el = document.getElementById('boot-error');
+    if (el) { el.style.display = 'block'; el.textContent = msg; }
+    console.error(msg);
   }
 
-  ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  function loadScript(src, testGlobal) {
+    return new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = src;
+      s.onload = () => {
+        const start = Date.now();
+        (function check() {
+          if (typeof window[testGlobal] !== 'undefined') return resolve();
+          if (Date.now() - start > 5000) return reject(new Error('Global ' + testGlobal + ' not found after ' + src + ' loaded'));
+          setTimeout(check, 20);
+        })();
+      };
+      s.onerror = () => reject(new Error('Failed to load ' + src));
+      document.head.appendChild(s);
+    });
+  }
+
+  const REMOTE_DEPS = [
+    { src: 'vendor/react.production.min.js', global: 'React' },
+    { src: 'vendor/react-dom.production.min.js', global: 'ReactDOM' },
+    { src: 'vendor/babel.min.js', global: 'Babel' },
+  ];
+  const LOCAL_DEPS = [
+    'src/lib/chrome.js',
+    'src/lib/router.js',
+    'src/data/product.js',
+  ];
+  const JSX_FILES = [
+    'src/components/dashboard-mockups.jsx',
+    'src/components/product-blocks.jsx',
+    'src/data/palettes.jsx',
+    'src/data/palettes-3.jsx',
+    'src/data/styles.jsx',
+    'src/data/styles-2.jsx',
+    'src/data/styles-3.jsx',
+    'src/components/demo-card.jsx',
+    'src/components/hero-header.jsx',
+    'src/components/home-grid.jsx',
+    'src/detail/layouts.jsx',
+    'src/detail/variants.jsx',
+    'src/detail/sections/hero.jsx',
+    'src/detail/sections/tokens.jsx',
+    'src/detail/sections/variants.jsx',
+    'src/detail/sections/pairings.jsx',
+    'src/detail/sections/page-in-action.jsx',
+    // Per-style immersive pages (10 flagship styles). Each file
+    // self-registers into window.STYLE_PAGES[id] = { theme, Page }.
+    'src/detail/styles/_shared.jsx',
+    'src/detail/styles/cyber.jsx',
+    'src/detail/styles/glass.jsx',
+    'src/detail/styles/memphis.jsx',
+    'src/detail/styles/pixel.jsx',
+    'src/detail/styles/bento.jsx',
+    'src/detail/styles/editorial.jsx',
+    'src/detail/styles/clay.jsx',
+    'src/detail/styles/vapor.jsx',
+    'src/detail/styles/holo.jsx',
+    'src/detail/styles/softui.jsx',
+    'src/detail/detail-view.jsx',
+    'app.jsx',
+  ];
+
+  function loadLocalScript(path) {
+    return new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = path;
+      s.onload = resolve;
+      s.onerror = () => reject(new Error('Failed to load ' + path));
+      document.head.appendChild(s);
+    });
+  }
+
+  async function loadAndCompileJSX(path) {
+    const res = await fetch(path);
+    if (!res.ok) throw new Error('Failed to fetch ' + path + ': ' + res.status);
+    const src = await res.text();
+    let compiled;
+    try {
+      compiled = window.Babel.transform(src, {
+        presets: ['env', 'react'],
+        filename: path,
+      }).code;
+    } catch (e) {
+      throw new Error('Babel transform failed for ' + path + ': ' + e.message + '\n\nSource (first 500 chars):\n' + src.slice(0, 500));
+    }
+    const s = document.createElement('script');
+    s.textContent = compiled;
+    document.body.appendChild(s);
+  }
+
+  async function bootstrap() {
+    try {
+      for (const dep of REMOTE_DEPS) {
+        await loadScript(dep.src, dep.global);
+      }
+      for (const f of LOCAL_DEPS) {
+        await loadLocalScript(f);
+      }
+      for (const f of JSX_FILES) {
+        await loadAndCompileJSX(f);
+      }
+    } catch (e) {
+      showError('[BOOT] ' + (e.message || e));
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootstrap);
+  } else {
+    bootstrap();
+  }
 </script>
 </body>
 </html>

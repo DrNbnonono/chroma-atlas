@@ -1,0 +1,16 @@
+{
+  "name": "palette-style-lab",
+  "version": "1.0.0",
+  "description": "A reference library of 44 color palettes × 36 visual styles applied to the same music player demo",
+  "private": true,
+  "scripts": {
+    "setup": "npm install",
+    "start": "python -m http.server 8080",
+    "postinstall": "node scripts/copy-vendor.js"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "@babel/standalone": "7.29.0"
+  }
+}
