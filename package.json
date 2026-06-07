@@ -1,7 +1,7 @@
 {
-  "name": "palette-style-lab",
+  "name": "chroma-atlas",
   "version": "1.0.0",
-  "description": "A reference library of 44 color palettes × 36 visual styles applied to the same music player demo",
+  "description": "A visual reference library: the same SaaS landing page rendered in 43 color palettes × 36 visual styles = 79 distinct combinations",
   "private": true,
   "scripts": {
     "setup": "npm install",

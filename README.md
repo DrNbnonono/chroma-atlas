@@ -1,101 +1,159 @@
-# 配色 × 风格参考库
+# chroma-atlas
 
-A reference library showcasing 44 color palettes × 36 visual styles, all
-applied to the same "music player" demo. Click any card on the home page
-to see a full detail page with color tokens, component variants, and
-recommended pairings.
+> A visual reference library. The same SaaS landing page rendered in **43 color palettes ? 36 visual styles = 79 distinct combinations**.
 
-## 运行
+> ????Folio SaaS ???????? 44 ??? ? 36 ????? ?? ???????????????????????????????
 
-```bash
-# 在项目根目录运行:
-python -m http.server 8080
+![Home page](./screenshots/home-top.png)
 
-# 然后浏览器打开:
-# http://127.0.0.1:8080/
-```
+The point of chroma-atlas is **apples-to-apples comparison**. Every card on the home page renders the exact same product (the Folio client portal) with the same content (the same hero, the same features, the same pricing tiers). Only the colors and the visual treatment change. That makes it easy to see, in a single scroll, how a single design brief plays out across wildly different visual languages.
 
-> 必须用 HTTP server(不能直接 `file://` 打开),因为 Babel Standalone
-> 通过 `<script src=...>` 加载外部 JSX 资源,`file://` 协议下浏览器
-> 会拒绝跨源加载。
+## What you get
 
-## 技术栈
+- **43 color palettes** ? Morandi, Sakura, Cyberpunk, Matcha, Nordic, Midnight, ? covering warm/cool, light/dark, retro/forward, paper/neon.
+- **36 visual styles** ? Cyberpunk, Glassmorphism, Memphis, Pixel, Bento, Editorial, Clay, Vaporwave, Holographic, Soft UI, ? from brutalist to dreamy.
+- **79 combinations** ? palettes and styles are independent. Pick any palette and any style; they compose.
+- **10 flagship styles** (cyber / glass / memphis / pixel / bento / editorial / clay / vapor / holo / softui) render the **whole detail page** in their own visual language ? typography, decoration, components, all themed.
+- **26 standard styles** render through a shared layout flow with the per-style `theme` providing the chrome.
 
-- **React 18** + **Babel Standalone**(无需打包,纯 CDN)
-- **hash-based SPA 路由**(`#/palette/<id>` 和 `#/style/<id>`)
-- **零运行时依赖**(无 npm install)
+## ?? ? ?? = ?????
 
-## 目录结构
+The same Folio landing page, three palette choices side-by-side. Notice how the structure, hierarchy, and content are identical; only the colors change.
+
+![Three palettes, same product](./screenshots/triple-palettes.png)
+
+## ????????
+
+10 flagship styles are not just demo cards. Click into one and the *entire* detail page ? background, fonts, scrollbars, components, even the section dividers ? adopts the style's visual language.
+
+### Cyberpunk ? neon, scanlines, monospace
+
+![Cyberpunk style](./screenshots/style-cyber.png)
+
+### Glassmorphism ? translucent panels over a gradient
+
+![Glass style](./screenshots/style-glass.png)
+
+### Memphis ? 80s geometry, bold color blocks, hard shadows
+
+![Memphis style](./screenshots/style-memphis.png)
+
+### Editorial ? serif, newsprint, column rules
+
+![Editorial style](./screenshots/style-editorial.png)
+
+### Holographic ? iridescent gradients, future-sleek
+
+![Holographic style](./screenshots/style-holo.png)
+
+### Bento ? Apple-keynote tile composition
+
+![Bento style](./screenshots/style-bento.png)
+
+### Cartoon ? comic-book outlines, hard shadows, primary colors
+
+![Cartoon style](./screenshots/style-cartoon.png)
+
+## Architecture
+
+The project is **zero-build**. There is no webpack, no bundler, no transpilation step. React + ReactDOM + Babel are loaded as pre-built bundles from `vendor/`; every JSX file in `src/` is fetched at runtime and compiled in the browser by Babel.
 
 ```
 .
-├── index.html                  # 主页入口(无 JSX 编译)
-├── app.jsx                     # 顶层 App + 路由监听
-├── README.md
-│
-├── src/
-│   ├── data/                   # 数据层(纯 JSX,无 React 组件)
-│   │   ├── palettes.jsx        # 32 种配色
-│   │   ├── palettes-3.jsx      # 12 种配色(追加)
-│   │   ├── styles.jsx          # 12 种风格
-│   │   ├── styles-2.jsx        # 12 种风格(追加)
-│   │   └── styles-3.jsx        # 12 种风格(追加)
-│   │
-│   ├── components/             # 通用组件
-│   │   ├── demo-card.jsx       # palette 演示卡
-│   │   ├── hero-header.jsx     # 主页顶部 header
-│   │   └── home-grid.jsx       # 主页网格(带 hover/click)
-│   │
-│   ├── detail/                 # 详情页专属
-│   │   ├── detail-view.jsx     # 详情页主组件
-│   │   ├── layouts.jsx         # 8 种 layout mode
-│   │   ├── variants.jsx        # 30 个变体组件(10 旗舰 × 3)
-│   │   ├── pairings.js         # 推荐搭配数据
-│   │   └── sections/           # 详情页 4 节
-│   │       ├── hero.jsx
-│   │       ├── tokens.jsx
-│   │       ├── variants.jsx
-│   │       └── pairings.jsx
-│   │
-│   └── lib/                    # 通用库
-│       ├── chrome.js           # palette → chrome 主题色推导
-│       └── router.js           # hash 路由
+??? index.html                    # bootstrap: load React, Babel, then JSX
+??? vendor/                       # pre-built React + ReactDOM + Babel (offline-ready)
+??? src/
+?   ??? lib/
+?   ?   ??? router.js             # hash-based SPA router
+?   ?   ??? chrome.js             # palette/style -> theme chrome (colors, fonts)
+?   ??? data/
+?   ?   ??? palettes.jsx          # 31 color palettes
+?   ?   ??? palettes-3.jsx        # +12 more
+?   ?   ??? styles.jsx            # 12 style demo cards (legacy)
+?   ?   ??? styles-2.jsx          # +12 more
+?   ?   ??? styles-3.jsx          # +12 more
+?   ?   ??? product.js            # the Folio SaaS product content (shared)
+?   ??? components/
+?   ?   ??? home-grid.jsx         # single-scroll home: palettes + styles sections
+?   ?   ??? hero-header.jsx       # sticky top header with anchor nav
+?   ?   ??? product-blocks.jsx    # the SaaS landing-page blocks (HeroBlock, FeaturesBlock, ?)
+?   ?   ??? dashboard-mockups.jsx # product UI mockups
+?   ?   ??? demo-card.jsx         # music-player palette card
+?   ??? detail/
+?       ??? detail-view.jsx       # dispatches to per-style page or layout flow
+?       ??? layouts.jsx           # 8 layout modes (flow, split-hero, bento, full-bleed, ?)
+?       ??? variants.jsx          # variant library
+?       ??? pairings.js           # palette?style pairings
+?       ??? sections/             # Hero / Page-in-Action / Tokens / Variants / Pairings
+?       ??? styles/               # 10 flagship per-style immersive pages
+?           ??? _shared.jsx       # chrome-agnostic scaffolding
+?           ??? cyber.jsx
+?           ??? glass.jsx
+?           ??? memphis.jsx
+?           ??? pixel.jsx
+?           ??? bento.jsx
+?           ??? editorial.jsx
+?           ??? clay.jsx
+?           ??? vapor.jsx
+?           ??? holo.jsx
+?           ??? softui.jsx
+??? scripts/
+?   ??? copy-vendor.js            # postinstall: copy node_modules/{react,react-dom,@babel} -> vendor/
+??? screenshots/                  # README visuals
+??? package.json
+??? README.md
 ```
 
-## 详情页 4 节
+### How a flagship style page works
 
-每个详情页都包含以下 4 节内容:
+Each file under `src/detail/styles/<id>.jsx` exports a self-contained React component:
 
-1. **Hero** — 大尺寸预览 + 名称/描述/分类标签 + 8 色卡或 layout 标签
-2. **Tokens** — palette: 8 个色角色卡 + 按钮 + 状态条
-              — style: Typography / Color Roles / Motion 三张原则卡
-3. **Variants** — palette: Text/Button/Card 3 个共享组件(数据驱动)
-                — style: 3 个 style 自定义组件(SearchBar/TrackRow/AlbumCard)
-4. **Pairings** — 2-6 个推荐搭配,可点击跳到对应详情页
+```js
+(function(){
+  const theme = { bg, surface, text, sub, primary, accent, border, isDark, fontFamily, ? };
 
-## 8 种 Layout Mode
+  function Hero({ item })        { return <div style={{ ? themed ? }} />; }
+  function PageInAction()        { return <B.HeroBlock p={PRODUCT} chrome={theme} />; }
+  function Tokens({ item })      { return ?; }
+  function Variants({ item })    { return <window.DetailVariants item={item} kind="style" chrome={theme} />; }
+  function Page({ item, onBack }){
+    return (
+      <div style={{ minHeight: '100vh', background: theme.bg, color: theme.text, fontFamily: theme.fontFamily, ? }}>
+        <window.StyleShared.SharedBackBar onBack={onBack} item={item} kind="style" theme={theme} />
+        <Hero item={item} />
+        <PageInAction />
+        <Tokens item={item} />
+        <Variants item={item} />
+        <window.StyleShared.SharedPairings item={item} theme={theme} currentKind="style" />
+      </div>
+    );
+  }
 
-每个旗舰 style 关联一种 layout,详情页排版不同:
+  window.STYLE_PAGES = window.STYLE_PAGES || {};
+  window.STYLE_PAGES.<id> = { theme, Page };
+})();
+```
 
-| Style | Layout |
-|---|---|
-| cyber, bento | bento |
-| glass, vapor, softui | split-hero |
-| memphis | mosaic |
-| pixel, clay, holo | full-bleed |
-| editorial | columned |
+The whole file is wrapped in an IIFE so internal `function Hero/Page/Section/...` declarations don't collide with the same names defined in other style files (a real bug we hit during development ? Babel-style `<script>` tags share global scope; the IIFE keeps each style's helpers private).
 
-其余 30 个 style 用 `flow`(默认纵向堆叠)作为占位。
+`detail-view.jsx` checks `window.STYLE_PAGES[item.id]` and dispatches to that style's `Page` if present, otherwise falls back to the layout flow using the style's own `theme` for chrome.
 
-## 10 旗舰 Style
+## Running it
 
-10 个 style 配了专属的 TrackRow / AlbumCard / SearchBar 三个变体组件
-(共 30 个),完整定义在 [src/detail/variants.jsx](src/detail/variants.jsx):
+```bash
+npm install            # also runs scripts/copy-vendor.js to populate vendor/
+npm start              # python -m http.server 8080
+```
 
-- cyber, glass, memphis, pixel, bento, editorial, clay, vapor, holo, softui
+Then open <http://localhost:8080/>. The home page is a single scroll with two sections (Color Palettes / Visual Styles) separated by a `?  ?  ?` divider. Click any card to enter the detail page.
 
-## 浏览器兼容性
+## Design notes
 
-- Chrome / Edge / Firefox / Safari (现代版本)
-- 必须支持 ES2017 + JSX 运行时(Babel Standalone 7.29 负责转译)
-- 必须支持 `backdrop-filter`(玻璃效果需要)
+- **Same product, everywhere.** Every demo renders the Folio client portal. No fake brand swap per style ? that would hide the effect of the visual treatment.
+- **Palettes and styles are independent.** A palette describes `bg / surface / text / sub / primary / accent / border / isDark`. A style describes decoration (border-radius, shadow, font, motion, ornaments). They compose.
+- **Apples-to-apples.** Same hero, same features, same pricing, same FAQ. Only colors and visual treatment change. That's what makes the library useful ? you see how a single design brief plays out in 79 ways.
+- **Zero build.** No webpack, no bundler. JSX is compiled in the browser by Babel Standalone. `vendor/` is committed so it works offline.
+
+## License
+
+MIT.
