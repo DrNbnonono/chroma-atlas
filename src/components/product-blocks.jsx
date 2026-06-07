@@ -161,7 +161,7 @@ function HeroScreenshot({ p, chrome, idx }) {
   if (Mockup) return <Mockup chrome={chrome} />;
   return (
     <div style={{
-      aspectRatio: '16 / 10', background: chrome.bg, border: '1px solid ' + chrome.border,
+      height: 320, maxHeight: 380, background: chrome.bg, border: '1px solid ' + chrome.border,
       borderRadius: 14, display: 'flex', alignItems: 'center', justifyContent: 'center',
       color: chrome.sub, fontSize: 12,
     }}>loading…</div>

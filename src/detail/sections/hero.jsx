@@ -17,7 +17,6 @@ function DetailHero({ item, kind, chrome }) {
     }}>
       <div style={{
         position: 'relative',
-        minHeight: 440,
         borderRadius: 16,
         overflow: 'hidden',
         background: previewBg,

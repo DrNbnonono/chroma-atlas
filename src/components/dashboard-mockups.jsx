@@ -8,8 +8,8 @@
 function BrowserFrame({ chrome, children, height }) {
   return (
     <div style={{
-      position: 'relative', width: '100%', height: height || 'auto',
-      aspectRatio: '16 / 10', borderRadius: 12, overflow: 'hidden',
+      position: 'relative', width: '100%', height: height || 320,
+      maxHeight: 380, borderRadius: 12, overflow: 'hidden',
       background: chrome.bg, border: '1px solid ' + chrome.border,
       boxShadow: '0 8px 24px rgba(0,0,0,0.08)',
     }}>
