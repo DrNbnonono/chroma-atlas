@@ -18,7 +18,6 @@ The point of chroma-atlas is **apples-to-apples comparison**. Every card on the 
 
 The Folio landing page rendered in Cyberpunk, Morandi, and Bento palettes side by side. Same structure, same hierarchy, same content -- only the colors change.
 
-![Three palettes, same product](./screenshots/triple-palettes.png)
 
 ## Flagship styles: the whole page is the demo
 
